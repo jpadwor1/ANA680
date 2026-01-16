@@ -9,6 +9,8 @@ app = Flask(__name__)
 CORS(app) 
 DATA_PATH = os.path.join(os.path.dirname(__file__), "breast-cancer-wisconsin-data1.csv")
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "svm_rbf_top_features.pkl")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 def load_and_clean_df(path):
     df = pd.read_csv(path).copy()
@@ -132,6 +134,18 @@ def predict():
         "label": "Malignant" if pred == 1 else "Benign",
         "used_features": SEL
     })
+
+@app.get("/")
+def serve_index():
+    return send_from_directory(STATIC_DIR, "index.html")
+
+@app.get("/<path:path>")
+def serve_static_files(path):
+    file_path = os.path.join(STATIC_DIR, path)
+    if os.path.exists(file_path):
+        return send_from_directory(STATIC_DIR, path)
+
+    return send_from_directory(STATIC_DIR, "index.html")
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
