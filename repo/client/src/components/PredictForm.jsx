@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 export default function Predict() {
-  const API = import.meta.env.VITE_API_BASE_URL;
+  const API = import.meta.env.DEV ? import.meta.env.VITE_API_BASE_URL : "";
 
   const [features, setFeatures] = useState([]);
   const [ranges, setRanges] = useState({});
@@ -16,8 +16,8 @@ export default function Predict() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(`${API}/model-info`);
-        console.log("Fetching model info from", `${API}/model-info`);
+        const res = await fetch(`/model-info`);
+        console.log("Fetching model info from", `/model-info`);
         const info = await res.json();
 
         const fList = info.selected_features || [];
@@ -69,7 +69,7 @@ export default function Predict() {
     try {
       const payload = { features: values };
 
-      const res = await fetch(`${API}/predict`, {
+      const res = await fetch(`/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
