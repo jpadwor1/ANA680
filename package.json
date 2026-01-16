@@ -1,7 +1,5 @@
 {
-  "name": "flask-vite-heroku",
-  "private": true,
   "scripts": {
-    "heroku-postbuild": "npm --prefix repo/client ci --include=dev && npm --prefix repo/client run build && rm -rf repo/server/static && mkdir -p repo/server/static && cp -r repo/client/dist/. repo/server/static/"
+    "heroku-postbuild": "npm --prefix repo/client ci --include=dev && npm --prefix repo/client run build && rm -rf repo/Server/static && mkdir -p repo/Server/static && cp -r repo/client/dist/. repo/Server/static/"
   }
 }
