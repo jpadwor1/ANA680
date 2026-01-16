@@ -1,4 +1,3 @@
-from Server.main import DATA_PATH
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pickle
@@ -8,7 +7,7 @@ import os
 
 app = Flask(__name__)
 CORS(app) 
-
+DATA_PATH = os.path.join(os.path.dirname(__file__), "breast-cancer-wisconsin-data1.csv")
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "svm_rbf_top_features.pkl")
 
 def load_and_clean_df(path):
