@@ -1,3 +1,7 @@
+import os
+print("BOOT CWD:", os.getcwd(), flush=True)
+print("BOOT FILE:", __file__, flush=True)
+print("FILES HERE:", os.listdir(os.path.dirname(os.path.abspath(__file__))), flush=True)
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import pickle
