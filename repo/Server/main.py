@@ -41,7 +41,6 @@ print("Train class counts:\n", y_train.value_counts())
 
 TOP_K = 4 
 
-# Impute missing values on training set for correlation calculation
 imp_for_corr = SimpleImputer(strategy="median")
 X_train_imp_for_corr = pd.DataFrame(
     imp_for_corr.fit_transform(X_train),
@@ -49,7 +48,6 @@ X_train_imp_for_corr = pd.DataFrame(
     index=X_train.index
 )
 
-# Correlation of each feature with target
 corrs = X_train_imp_for_corr.apply(lambda s: s.corr(y_train))
 corrs_sorted = corrs.reindex(corrs.abs().sort_values(ascending=False).index)
 
@@ -103,7 +101,6 @@ imputer_loaded = loaded["imputer"]
 scaler_loaded = loaded["scaler"]
 model_loaded = loaded["model"]
 
-# Example: predict first 5 test rows
 X_example = X_test[sel]
 X_example_imp = imputer_loaded.transform(X_example)
 X_example_scaled = scaler_loaded.transform(X_example_imp)
